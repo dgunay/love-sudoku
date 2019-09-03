@@ -2,13 +2,26 @@
 local grid = {}
 _grid = {}
 
--- Create the 9x9 grid with all cells initialized to false
+local FONT_SIZE = 22
+local font = love.graphics.newFont(FONT_SIZE)
+
+local function newCell(text)
+  text = text or love.graphics.newText(font)
+  return {
+    Text = text,
+    getOriginOffsets = function (self) -- origin offsets to center the text
+      return self.Text:getWidth() / 2, self.Text:getHeight() / 2
+    end
+  }
+end
+
+-- Create the 9x9 grid with all cells initialized to a drawable Text
 function grid.initialize()
   _grid = {}
   for i = 1, 9 do
     _grid[i] = {}
     for j = 1, 9 do
-      _grid[i][j] = false
+      _grid[i][j] = newCell()
     end
   end
 end
