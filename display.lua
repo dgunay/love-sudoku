@@ -24,7 +24,7 @@ function display.draw(grid)
                               CELL_SIZE)
 
       -- Write the square's current value in
-      local value = grid.valueAt(i, j)
+      local value = grid.cellAt(i, j)
       if value then
         local text_offset = (CELL_SIZE / 2)
         local x_origin_offset, y_origin_offset = value:getOriginOffsets()

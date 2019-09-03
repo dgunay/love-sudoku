@@ -1,9 +1,11 @@
 local grid    = require 'grid'
 local display = require 'display'
 
+local firsttime = true
+local updated = false
+
 function love.load()
   grid.initialize()
-  -- TODO: https://love2d.org/wiki/Tutorial:Fonts_and_Text to make the text bigger
 end
 
 function love.draw()

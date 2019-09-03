@@ -5,12 +5,34 @@ _grid = {}
 local FONT_SIZE = 22
 local font = love.graphics.newFont(FONT_SIZE)
 
-local function newCell(text)
+local function valueError(value)
+  error(value .. " is not a valid Sudoku cell value")
+end
+
+local function isValidValue(value)
+  return value >= 1 and value <= 9
+end
+
+local function newCell(value, text)
   text = text or love.graphics.newText(font)
+  value = value or false
+
+  if value and not isValidValue(value) then
+    valueError(value)
+  end
+
   return {
+    value = value,
     Text = text,
-    getOriginOffsets = function (self) -- origin offsets to center the text
+    getOriginOffsets = function(self) -- origin offsets to center the text
       return self.Text:getWidth() / 2, self.Text:getHeight() / 2
+    end
+    setValue = function(self, value)
+      if isValidValue(value) then
+        self.value = value
+      else
+        valueError(value)
+      end
     end
   }
 end
@@ -26,7 +48,7 @@ function grid.initialize()
   end
 end
 
-function grid.valueAt(x, y)
+function grid.cellAt(x, y)
   return _grid[x][y]
 end
 
