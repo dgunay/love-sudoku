@@ -1,12 +1,13 @@
 local display = {}
 
+local CELL_SIZE        = 55
+local GRID_LENGTH      = CELL_SIZE * 9
+local OFFSET_FROM_LEFT = 150
+local OFFSET_FROM_TOP  = 50
+
 -- Called from the love.draw loop
 -- Uses the data in the grid to draw the Sudoku board state on the screen.
 function display.draw(grid)
-  local CELL_SIZE        = 55
-  local GRID_LENGTH      = CELL_SIZE * 9
-  local OFFSET_FROM_LEFT = 150
-  local OFFSET_FROM_TOP  = 50
 
   love.graphics.setLineWidth(1)
 
@@ -24,11 +25,11 @@ function display.draw(grid)
                               CELL_SIZE)
 
       -- Write the square's current value in
-      local value = grid.cellAt(i, j)
-      if value then
+      local cell = grid.cellAt(i, j)
+      if cell.value then
         local text_offset = (CELL_SIZE / 2)
-        local x_origin_offset, y_origin_offset = value:getOriginOffsets()
-        love.graphics.draw(value.Text, x_offset + text_offset, y_offset + text_offset, 
+        local x_origin_offset, y_origin_offset = cell:getOriginOffsets()
+        love.graphics.draw(cell.Text, x_offset + text_offset, y_offset + text_offset, 
                            0, 1, 1, x_origin_offset, y_origin_offset)
       end
     end

@@ -11,3 +11,8 @@ end
 function love.draw()
   display.draw(grid)
 end
+
+function love.mousepressed(x, y, button, istouch, presses)
+  -- Select a cell
+  
+end
